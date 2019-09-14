@@ -77,10 +77,16 @@ print(newlist)
 
 def clean2(alist):
 
-    for i in alist:
-        print(i)
-        if alist[i] in alist[0:i]:
+    i=0
+    match = True
+    while match:
+        if alist[i] in alist[i+1:len(alist)]:
             del alist[i]
+            match = True
+        else:
+            i += 1
+            if i == len(alist):
+                match = Fals
         
 print(a1)
 clean2(a1)
