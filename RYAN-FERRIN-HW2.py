@@ -86,7 +86,7 @@ def clean2(alist):
         else:
             i += 1
             if i == len(alist):
-                match = Fals
+                match = False
         
 print(a1)
 clean2(a1)
