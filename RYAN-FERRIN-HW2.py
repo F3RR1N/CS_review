@@ -107,3 +107,12 @@ def fct(alist):
 
 a2 = [1, 2, 3, 4, 5, 16, 255, 256, -1, -2, 84]
 fct(a2)
+
+def taylor(x,n):
+
+    a = x
+    s = a
+    for i in range(1, order):
+        a *= -1 * x**2 / ((2 * i) * (2 * i + 1))
+        s += a
+    return s
