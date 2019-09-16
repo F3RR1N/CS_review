@@ -91,3 +91,19 @@ def clean2(alist):
 print(a1)
 clean2(a1)
 print(a1)
+
+# 4) write a function that takes a list and returns
+#    a string of elements that are a power of 2
+
+def fct(alist):
+
+    even=[]
+    
+    for i in range(len(alist)):
+        if alist[i] % 2 == 0 and alist[i] != 0:
+            even.append(alist[i])
+       
+    print('These element of the given list are a power of 2 ' + str(even))
+
+a2 = [1, 2, 3, 4, 5, 16, 255, 256, -1, -2, 84]
+fct(a2)
