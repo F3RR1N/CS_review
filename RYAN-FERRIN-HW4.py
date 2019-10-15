@@ -78,7 +78,35 @@ class Graph:
             print('Index error')
 
 
-g = Graph(7)
+class UnGraphWtLoop(Graph):
+    def __init__(self,n):
+        Graph.__init__(self,n)
+
+    def addEdge(self,i,j):
+        if(i==j):
+            print('addEdge(self,i,j): No loop')
+            return
+        try:
+            self.edges[i][j]=1
+            self.edges[j][i]=1
+        except IndexError:
+            print('Could not add edge ('+str(i)+','+str(j)+')')
+            print('Index error')
+
+    def removeEdge(self, i, j):
+        try:
+            self.edges[i][j] = 0
+            self.edges[j][i] = 0
+        except IndexError:
+            print('Could not remove edge (' + str(i) + ',' + str(j) + ')')
+            print('Index error')
+
+class Shippment:
+    def __init__(self, graph):
+
+
+
+g = UnGraphWtLoop(7)
 print(g.toString())
 
 for i in range(0, g.k):
