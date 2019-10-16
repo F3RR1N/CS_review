@@ -104,6 +104,18 @@ class UnGraphWtLoop(Graph):
             print('Could not remove edge (' + str(i) + ',' + str(j) + ')')
             print('Index error')
 
+# define the edges of the graph.
+def fillgraph(g):
+    for i in range(0, g.k):
+        for j in range(0, g.k):
+            if i == j or j == i+1 or j == i-1:
+                g.removeEdge(i, j)
+            elif (i == 0 and j == g.k - 1) or (i == g.k - 1 and j == 0):
+                g.removeEdge(i, j)
+            else:
+                g.addEdge(i, j)
+    return g
+
 # Functions to determine number of trucks required to move chemical products.
 # warehouse creates an inventory of all chemical products.
 # Truck uses the graph to fill products that are safe to transport together
@@ -127,7 +139,7 @@ def truck(g, i):
             if product not in truck:
                 truck.append(product)
                 i = j+1
-    if 'P1' and 'P'+str(g.k) in truck:
+    if 'P1' in truck and 'P'+str(g.k) in truck:
         truck.remove('P'+str(g.k))
     return truck
 
@@ -152,16 +164,7 @@ def fleet(g):
 g = UnGraphWtLoop(7)
 print(g.toString())
 
-# define the edges of the graph.
-
-for i in range(0, g.k):
-    for j in range(0, g.k):
-        if i == j or j == i+1 or j == i-1:
-            g.removeEdge(i, j)
-        elif (i == 0 and j == g.k - 1) or (i == g.k - 1 and j == 0):
-            g.removeEdge(i, j)
-        else:
-            g.addEdge(i, j)
+g = fillgraph(g)
 
 print(g.toString())
 
@@ -169,6 +172,16 @@ print(g.toString())
 
 fleet1 = fleet(g)
 print(fleet1)
+
+g2 = UnGraphWtLoop(8)
+print(g2.toString())
+
+g2 = fillgraph(g2)
+
+print(g2.toString())
+
+fleet2 = fleet(g2)
+print(fleet2)
 
 
 # 4) Egyptian Multiplication
@@ -184,3 +197,9 @@ def egyptmult(x, y):
         return x + egyptmult(x, y-1)
 
 print(egyptmult(7, 10))
+
+print(egyptmult(7,5))
+
+print(egyptmult(12,4))
+
+print(egyptmult(4,12))
