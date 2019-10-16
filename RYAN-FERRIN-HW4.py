@@ -42,6 +42,8 @@ heart()
 
 # The Graph property is
 
+#define direct Graph  class
+
 class Graph:
     def __init__(self,k):
         self.k = k
@@ -77,6 +79,7 @@ class Graph:
             print('Could not remove edge ('+str(i)+','+str(j)+')')
             print('Index error')
 
+# define undirected class
 
 class UnGraphWtLoop(Graph):
     def __init__(self,n):
@@ -101,13 +104,55 @@ class UnGraphWtLoop(Graph):
             print('Could not remove edge (' + str(i) + ',' + str(j) + ')')
             print('Index error')
 
-class Shippment:
-    def __init__(self, graph):
+# Functions to determine number of trucks required to move chemical products.
+# warehouse creates an inventory of all chemical products.
+# Truck uses the graph to fill products that are safe to transport together
+# fleet uses the inventory created by the warehouse to build a fleet of trucks required to move the whole inventory.
+# there is no limit to how many products are carried in a single truck.
 
+def warehouse(g):
 
+    inventory = []
+    for i in range(0,g.k):
+        inventory.append('P'+str(i+1))
+    return inventory
+
+def truck(g, i):
+
+    truck = []
+    truck.append('P'+str(i))
+    for j in range(0, g.k):
+        if g.edges[i-1][j] == 1:
+            product = 'P'+str(j+1)
+            if product not in truck:
+                truck.append(product)
+                i = j+1
+    if 'P1' and 'P'+str(g.k) in truck:
+        truck.remove('P'+str(g.k))
+    return truck
+
+def fleet(g):
+
+    fleet = []
+    inventory = warehouse(g)
+    while len(inventory) > 0:
+        if len(inventory) == 1:
+            load = inventory.pop(0)
+        else:
+            i = int(inventory[0].replace('P',''))
+            load = truck(g,i)
+            for j in range(len(load)):
+                inventory.remove(load[j])
+        fleet.append(load)
+    print('minimum number of trucks required to move inventory '+str(len(fleet)))
+    return fleet
+
+# define number or products represented by the graph.
 
 g = UnGraphWtLoop(7)
 print(g.toString())
+
+# define the edges of the graph.
 
 for i in range(0, g.k):
     for j in range(0, g.k):
@@ -120,8 +165,13 @@ for i in range(0, g.k):
 
 print(g.toString())
 
+# run minimum truck algorithm
 
-# 4) Egyptian Multiplicaton
+fleet1 = fleet(g)
+print(fleet1)
+
+
+# 4) Egyptian Multiplication
 
 def egyptmult(x, y):
     if x < 0 or y < 0:
